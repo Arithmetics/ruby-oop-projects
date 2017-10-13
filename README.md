@@ -1,5 +1,5 @@
-#ruby-oop-projects
-Odin Project Object Oriented Programming Projects
+# ruby-oop-projects
+Odin Object Oriented Programming Projects
 
 <strong>Project 1: Tic Tac Toe</strong>
 Play against a friend on the command line.
