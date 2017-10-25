@@ -1,6 +1,5 @@
 #tic tac toe game
 
-
 class Game
   attr_accessor :cells, :turn
 
@@ -52,47 +51,58 @@ class Game
      o_win.any?
    end
 
-   def change_to_x(spot)
-     @cells[spot] = "X"
+    def change_to_x(spot)
+      if @cells[spot] == " "
+        @cells[spot] = "X"
+        @turn = "O"
+      end
+    end
+
+    def change_to_o(spot)
+      if @cells[spot] == " "
+        @cells[spot] = "O"
+        @turn = "X"
+      end
+    end
+
+   def end_game
+     self.draw_board
+     if self.x_win?
+       puts "X won thanks for playing!"
+       exit
+     elsif self.o_win?
+       puts "O won thanks for playing!"
+       exit
+     else
+       puts "looks like a tie"
+       exit
+     end
    end
 
-   def change_to_o(spot)
-     @cells[spot] = "O"
+   def continue?
+     if !self.x_win? && !self.o_win? && !self.cells.none? { |r| r == " "}
+       true
+     else
+       false
+     end
    end
 
-end
 
+   def play
+     puts "Welcome to tic tac toe"
+     while continue?
+       self.draw_board
+       if self.turn == "X"
+         puts "it is X's turn, what square?"
+         square = gets.chomp.to_i
+         self.change_to_x(square)
+       elsif self.turn == "O"
+         puts "it is O's turn, what square?"
+         square = gets.chomp.to_i
+         self.change_to_o(square)
+       end
+     end
+     self.end_game
+   end
 
-###game flow
-
-game = Game.new
-
-puts "Welcome to tic tac toe"
-
-while !game.x_win? && !game.o_win? && game.cells.any? { |r| r == " "}
-  game.draw_board
-  if game.turn == "X"
-    puts "it is X's turn, what square?"
-    square = gets.chomp.to_i
-    game.change_to_x(square)
-    game.turn = "O"
-  elsif game.turn == "O"
-    puts "it is O's turn, what square?"
-    square = gets.chomp.to_i
-    game.change_to_o(square)
-    game.turn = "X"
-  end
-end
-
-game.draw_board
-
-if game.x_win?
-  puts "X won thanks for playing!"
-  exit
-elsif game.o_win?
-  puts "O won thanks for playing!"
-  exit
-else
-  puts "looks like a tie"
-  exit
 end
